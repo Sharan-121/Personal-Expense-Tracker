@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import './transaction.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(MyApp());
@@ -18,6 +19,11 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
+  String? titleInput;
+  String? costInput;
+
+  
+
   final List<transaction> transList = [
     transaction(
       id: "t1",
@@ -43,7 +49,7 @@ class MyHomePage extends StatelessWidget {
             title: Text('Flutter App'),
           ),
           body: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Container(
@@ -54,6 +60,42 @@ class MyHomePage extends StatelessWidget {
                   ),
                   elevation: 5,
                   color: Colors.amber,
+                ),
+              ),
+              Card(
+                elevation: 5,
+                child: Container(
+                  padding: EdgeInsets.all(10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      TextField(
+                        decoration: InputDecoration(labelText: "Title"),
+                        onChanged: (value) {
+                          titleInput = value;
+                        },
+                      ),
+                      TextField(
+                        decoration: InputDecoration(labelText: "Amount"),
+                        onChanged: (value) {
+                          costInput = value;
+                        },
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          print(titleInput);
+                          print(costInput);
+                        },
+                        style: ButtonStyle(
+                          foregroundColor:
+                              MaterialStateProperty.all(Colors.white),
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.purple),
+                        ),
+                        child: Text("Add Transaction"),
+                      )
+                    ],
+                  ),
                 ),
               ),
               Column(
@@ -73,7 +115,7 @@ class MyHomePage extends StatelessWidget {
                               ),
                             ),
                             child: Text(
-                              tx.cost.toString(),
+                              '\₹ ${tx.cost}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20,
@@ -90,7 +132,7 @@ class MyHomePage extends StatelessWidget {
                                     fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                               Text(
-                                tx.date.toString(),
+                                DateFormat.yMMMd().format(tx.date),
                                 style:
                                     TextStyle(color: Colors.grey, fontSize: 16),
                               )
