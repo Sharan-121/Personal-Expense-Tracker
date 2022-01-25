@@ -5,12 +5,12 @@ class TransInput extends StatelessWidget {
   String? costInput;
   final Function _addNewTransaction;
 
-  String checkNull(String? st) {
-    if (st != null) {
-      return st;
-    }
-    return "0";
-  }
+  // String checkNull(String? st) {
+  //   if (st != null) {
+  //     return st;
+  //   }
+  //   return "0";
+  // }
 
   TransInput(this._addNewTransaction);
 
@@ -36,8 +36,7 @@ class TransInput extends StatelessWidget {
               },
             ),
             ElevatedButton(
-              onPressed: () => _addNewTransaction(
-                  (checkNull(titleInput)), double.parse(checkNull(costInput))),
+              onPressed: () => _addNewTransaction(titleInput, costInput),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.white),
                 backgroundColor: MaterialStateProperty.all(Colors.purple),

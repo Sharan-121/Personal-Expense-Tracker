@@ -24,11 +24,11 @@ class _CreateTransactionState extends State<CreateTransaction> {
     ),
   ];
 
-  void _addNewTransaction(String? title, double amount) {
+  void _addNewTransaction(String title, String amount) {
     final newTx = transaction(
         id: DateTime.now().toString(),
-        title: title ?? "Title",
-        cost: amount,
+        title: title,
+        cost: double.parse(amount),
         date: DateTime.now());
     setState(() {
       _transList.add(newTx);
