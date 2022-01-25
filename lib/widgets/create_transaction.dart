@@ -24,15 +24,25 @@ class _CreateTransactionState extends State<CreateTransaction> {
     ),
   ];
 
-  void _addNewTransaction(String title, String amount) {
-    final newTx = transaction(
-        id: DateTime.now().toString(),
-        title: title,
-        cost: double.parse(amount),
-        date: DateTime.now());
-    setState(() {
-      _transList.add(newTx);
-    });
+  void _addNewTransaction(String? title, String? amount,
+      TextEditingController controller1, TextEditingController controller2) {
+    var tempTitle;
+    var tempAmount;
+    if ((title != null && title != "") && (amount != null && amount != "")) {
+      tempTitle = title;
+      tempAmount = amount;
+      final newTx = transaction(
+          id: DateTime.now().toString(),
+          title: tempTitle,
+          cost: double.parse(tempAmount),
+          date: DateTime.now());
+      setState(() {
+        _transList.add(newTx);
+        controller1.clear();
+        controller2.clear();
+      });
+    }
+    return;
   }
 
   @override

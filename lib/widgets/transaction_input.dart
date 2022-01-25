@@ -4,13 +4,8 @@ class TransInput extends StatelessWidget {
   String? titleInput;
   String? costInput;
   final Function _addNewTransaction;
-
-  // String checkNull(String? st) {
-  //   if (st != null) {
-  //     return st;
-  //   }
-  //   return "0";
-  // }
+  final controller1 = TextEditingController();
+  final controller2 = TextEditingController();
 
   TransInput(this._addNewTransaction);
 
@@ -24,19 +19,24 @@ class TransInput extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
+              controller: controller1,
               decoration: InputDecoration(labelText: "Title"),
               onChanged: (value) {
                 titleInput = value;
               },
+              onSubmitted: (_) => _addNewTransaction(titleInput, costInput),
             ),
             TextField(
-              decoration: InputDecoration(labelText: "Amount"),
-              onChanged: (value) {
-                costInput = value;
-              },
-            ),
+                decoration: InputDecoration(labelText: "Amount"),
+                controller: controller2,
+                onChanged: (value) {
+                  costInput = value;
+                },
+                onSubmitted: (_) => _addNewTransaction(titleInput, costInput),
+                keyboardType: TextInputType.number),
             ElevatedButton(
-              onPressed: () => _addNewTransaction(titleInput, costInput),
+              onPressed: () => _addNewTransaction(
+                  controller1.text, controller2.text, controller1, controller2),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.white),
                 backgroundColor: MaterialStateProperty.all(Colors.purple),
