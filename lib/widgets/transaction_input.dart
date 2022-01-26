@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
 
-class TransInput extends StatelessWidget {
-  String? titleInput;
-  String? costInput;
+class TransInput extends StatefulWidget {
   final Function _addNewTransaction;
-  final controller1 = TextEditingController();
-  final controller2 = TextEditingController();
 
   TransInput(this._addNewTransaction);
+
+  @override
+  State<TransInput> createState() => _TransInputState();
+}
+
+class _TransInputState extends State<TransInput> {
+  String? titleInput;
+
+  String? costInput;
+
+  final controller1 = TextEditingController();
+
+  final controller2 = TextEditingController();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +34,10 @@ class TransInput extends StatelessWidget {
               onChanged: (value) {
                 titleInput = value;
               },
-              onSubmitted: (_) => _addNewTransaction(titleInput, costInput),
+              onEditingComplete: () => widget._addNewTransaction(
+                  titleInput, costInput, controller1, controller2),
+              onSubmitted: (_) => widget._addNewTransaction(
+                  titleInput, costInput, controller1, controller2),
             ),
             TextField(
                 decoration: InputDecoration(labelText: "Amount"),
@@ -32,17 +45,21 @@ class TransInput extends StatelessWidget {
                 onChanged: (value) {
                   costInput = value;
                 },
-                onSubmitted: (_) => _addNewTransaction(titleInput, costInput),
+                onEditingComplete: () => widget._addNewTransaction(
+                    titleInput, costInput, controller1, controller2),
+                onSubmitted: (_) => widget._addNewTransaction(
+                    titleInput, costInput, controller1, controller2),
                 keyboardType: TextInputType.number),
             ElevatedButton(
-              onPressed: () => _addNewTransaction(
+              onPressed: () => widget._addNewTransaction(
                   controller1.text, controller2.text, controller1, controller2),
               style: ButtonStyle(
                 foregroundColor: MaterialStateProperty.all(Colors.white),
                 backgroundColor: MaterialStateProperty.all(Colors.purple),
               ),
               child: Text("Add Transaction"),
-            )
+            ),
+          
           ],
         ),
       ),
