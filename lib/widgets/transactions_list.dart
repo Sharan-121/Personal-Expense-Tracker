@@ -10,49 +10,63 @@ class TransList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
-      child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Card(
-              elevation: 5,
-              child: Row(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(10),
-                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Theme.of(context).colorScheme.primary,
-                        width: 2,
-                      ),
-                    ),
-                    child: Text(
-                      '\₹ ${transList[index].cost.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        transList[index].title,
-                        style: Theme.of(context).textTheme.headline6,
-                      ),
-                      Text(
-                        DateFormat.yMMMd().format(transList[index].date),
-                        style: TextStyle(color: Colors.grey, fontSize: 16),
-                      )
-                    ],
-                  )
-                ],
-              ));
-        },
-        itemCount: transList.length,
-      ),
+      height: 500,
+      child: transList.isEmpty
+          ? Column(children: <Widget>[
+              Text(
+                "No Transactions added yet",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(height: 10),
+              Container(
+                  height: 200,
+                  child: Image.asset('assets/images/waiting.png',
+                      fit: BoxFit.cover)),
+            ])
+          : ListView.builder(
+              itemBuilder: (context, index) {
+                return Card(
+                    elevation: 5,
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          padding: EdgeInsets.all(10),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 20),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Theme.of(context).colorScheme.primary,
+                              width: 2,
+                            ),
+                          ),
+                          child: Text(
+                            '\₹ ${transList[index].cost.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              transList[index].title,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            Text(
+                              DateFormat.yMMMd().format(transList[index].date),
+                              style:
+                                  TextStyle(color: Colors.grey, fontSize: 16),
+                            )
+                          ],
+                        )
+                      ],
+                    ));
+              },
+              itemCount: transList.length,
+            ),
     );
   }
 }
