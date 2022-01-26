@@ -22,7 +22,7 @@ class TransList extends StatelessWidget {
                     margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: Colors.purple,
+                        color: Theme.of(context).colorScheme.primary,
                         width: 2,
                       ),
                     ),
@@ -31,7 +31,7 @@ class TransList extends StatelessWidget {
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
-                        color: Colors.purple,
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ),
@@ -40,8 +40,7 @@ class TransList extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         transList[index].title,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline6,
                       ),
                       Text(
                         DateFormat.yMMMd().format(transList[index].date),

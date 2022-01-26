@@ -16,6 +16,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "Personal Expense Tracker",
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.purple)
+            .copyWith(secondary: Colors.teal.shade400),
+        fontFamily: "QuickSand",
+        textTheme: ThemeData.light().textTheme.copyWith(
+            headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontWeight: FontWeight.bold,
+                fontSize: 18)),
+        appBarTheme: AppBarTheme(
+            titleTextStyle: ThemeData.light()
+                .textTheme
+                .copyWith(
+                    headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                ))
+                .headline6),
+      ),
       home: MyHomePage(),
     );
   }
@@ -78,51 +97,45 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text('Personal Expense Tracker'),
-            backgroundColor: Colors.purple,
-            actions: <Widget>[
-              IconButton(
-                onPressed: () => _startInput(context),
-                icon: Icon(
-                  Icons.add_circle,
-                  size: 27,
-                ),
-              )
-            ],
-          ),
-          body: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: double.infinity,
-                  child: Card(
-                    child: Text(
-                      "Chart",
-                    ),
-                    elevation: 5,
-                    color: Colors.amber,
-                  ),
-                ),
-                TransList(_transList),
-              ],
-            ),
-          ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: FloatingActionButton(
+    return (Scaffold(
+      appBar: AppBar(
+        title: Text('Personal Expense Tracker'),
+        actions: <Widget>[
+          IconButton(
             onPressed: () => _startInput(context),
-            child: Icon(
-              Icons.add,
+            icon: Icon(
+              Icons.add_circle,
+              size: 27,
             ),
-          ),
-        ));
+          )
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              child: Card(
+                child: Text(
+                  "Chart",
+                ),
+                elevation: 5,
+                color: Colors.amber,
+              ),
+            ),
+            TransList(_transList),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _startInput(context),
+        child: Icon(
+          Icons.add,
+        ),
+      ),
+    ));
   }
 }
