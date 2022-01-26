@@ -10,7 +10,7 @@ class TransList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: 400,
       child: ListView.builder(
         itemBuilder: (context, index) {
           return Card(
@@ -27,7 +27,7 @@ class TransList extends StatelessWidget {
                       ),
                     ),
                     child: Text(
-                      '\₹ ${transList[index].cost}',
+                      '\₹ ${transList[index].cost.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
