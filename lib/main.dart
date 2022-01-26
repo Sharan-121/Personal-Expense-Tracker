@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
+import 'package:personal_expense_tracker/widgets/chart.dart';
 
 import 'package:personal_expense_tracker/widgets/transactions_list.dart';
 import 'package:personal_expense_tracker/widgets/transaction_input.dart';
@@ -46,20 +47,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<transaction> _transList = [
-    transaction(
-      id: "t1",
-      title: "Shoes",
-      cost: 123,
-      date: DateTime.now(),
-    ),
-    transaction(
-      id: "t2",
-      title: "Grocery",
-      cost: 757,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<transaction> _transList = [];
+
+  List<transaction> get _recentTransactions {
+    return _transList.where((element) {
+      return element.date.isAfter(DateTime.now().subtract(Duration(days: 7),));
+    }).toList();
+  }
 
   void _addNewTransaction(String? title, String? amount,
       TextEditingController controller1, TextEditingController controller2) {
@@ -89,6 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
     BuildContext ctx,
   ) {
     showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
         context: ctx,
         builder: (_) {
           return TransInput(_addNewTransaction);
@@ -115,16 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text(
-                  "Chart",
-                ),
-                elevation: 5,
-                color: Colors.amber,
-              ),
-            ),
+            Chart(_recentTransactions),
             TransList(_transList),
           ],
         ),
