@@ -17,13 +17,13 @@ class _TransInputState extends State<TransInput> {
   final controller1 = TextEditingController();
 
   final controller2 = TextEditingController();
-  
 
   @override
   Widget build(BuildContext context) {
     return Card(
       elevation: 5,
       child: Container(
+        height: 300,
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
@@ -59,7 +59,6 @@ class _TransInputState extends State<TransInput> {
               ),
               child: Text("Add Transaction"),
             ),
-          
           ],
         ),
       ),
