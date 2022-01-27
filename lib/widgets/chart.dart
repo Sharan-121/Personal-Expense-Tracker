@@ -11,7 +11,7 @@ class Chart extends StatelessWidget {
   List<Map<String, Object>> get groupedTransactions {
     return List.generate(7, (index) {
       final weekDay = DateTime.now().subtract(
-        Duration(days: index),
+        Duration(days: 6 - index),
       );
       var amount = 0.0;
 
@@ -38,24 +38,25 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        elevation: 6,
-        margin: EdgeInsets.all(20),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: groupedTransactions.map((data) {
-              return Flexible(
-                fit: FlexFit.tight,
-                child: ChartBar(
-                    data['day'] as String,
-                    data['amount'] as double,
-                    maxSpending == 0
-                        ? 0.0
-                        : (data['amount'] as double) / maxSpending),
-              );
-            }).toList(),
-          ),
-        ),);
+      elevation: 6,
+      margin: EdgeInsets.all(20),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: groupedTransactions.map((data) {
+            return Flexible(
+              fit: FlexFit.tight,
+              child: ChartBar(
+                  data['day'] as String,
+                  data['amount'] as double,
+                  maxSpending == 0
+                      ? 0.0
+                      : (data['amount'] as double) / maxSpending),
+            );
+          }).toList(),
+        ),
+      ),
+    );
   }
 }
