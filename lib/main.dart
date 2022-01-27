@@ -58,19 +58,27 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String? title, String? amount,
-      TextEditingController controller1, TextEditingController controller2) {
+  void _addNewTransaction(
+      String? title,
+      String? amount,
+      TextEditingController controller1,
+      TextEditingController controller2,
+      DateTime? date) {
     var tempTitle;
     var tempAmount;
-    if ((title != null && title != "") && (amount != null && amount != "")) {
+    var tempDate;
+    if ((title != null && title != "") &&
+        (amount != null && amount != "") &&
+        date != null) {
       tempTitle = title;
       tempAmount = double.parse(amount);
+      tempDate = date;
       if (tempAmount > 0) {
         final newTx = transaction(
             id: DateTime.now().toString(),
             title: tempTitle,
             cost: tempAmount,
-            date: DateTime.now());
+            date: tempDate);
         setState(() {
           _transList.add(newTx);
           controller1.clear();
