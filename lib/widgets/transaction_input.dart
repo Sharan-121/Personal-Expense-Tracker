@@ -53,10 +53,10 @@ class _TransInputState extends State<TransInput> {
               onChanged: (value) {
                 titleInput = value;
               },
-              onEditingComplete: () => widget._addNewTransaction(
-                  titleInput, costInput, controller1, controller2,_selectedDate),
-              onSubmitted: (_) => widget._addNewTransaction(
-                  titleInput, costInput, controller1, controller2,_selectedDate),
+              onEditingComplete: () => widget._addNewTransaction(titleInput,
+                  costInput, controller1, controller2, _selectedDate),
+              onSubmitted: (_) => widget._addNewTransaction(titleInput,
+                  costInput, controller1, controller2, _selectedDate),
             ),
             TextField(
                 decoration: InputDecoration(labelText: "Amount"),
@@ -64,10 +64,10 @@ class _TransInputState extends State<TransInput> {
                 onChanged: (value) {
                   costInput = value;
                 },
-                onEditingComplete: () => widget._addNewTransaction(
-                    titleInput, costInput, controller1, controller2,_selectedDate),
-                onSubmitted: (_) => widget._addNewTransaction(
-                    titleInput, costInput, controller1, controller2,_selectedDate),
+                onEditingComplete: () => widget._addNewTransaction(titleInput,
+                    costInput, controller1, controller2, _selectedDate),
+                onSubmitted: (_) => widget._addNewTransaction(titleInput,
+                    costInput, controller1, controller2, _selectedDate),
                 keyboardType: TextInputType.number),
             Container(
               height: 70,
@@ -81,7 +81,6 @@ class _TransInputState extends State<TransInput> {
                   //   width: 5,
                   // ),
                   ElevatedButton(
-          
                     onPressed: _presentDatePicker,
                     child: Text("Choose Date"),
                   )

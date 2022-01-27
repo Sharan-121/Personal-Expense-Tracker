@@ -4,15 +4,17 @@ import 'package:intl/intl.dart';
 
 class TransList extends StatelessWidget {
   late List<transaction> transList;
+  final Function _deleteTransaction;
 
-  TransList(this.transList);
+  TransList(this.transList, this._deleteTransaction);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 400,
+      height: 450,
       child: transList.isEmpty
           ? Column(children: <Widget>[
+              SizedBox(height: 20),
               Text(
                 "No Transactions added yet",
                 style: Theme.of(context).textTheme.headline6,
@@ -27,7 +29,7 @@ class TransList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  margin: EdgeInsets.all(18),
                   child: ListTile(
                     leading: CircleAvatar(
                       backgroundColor: Theme.of(context).colorScheme.primary,
@@ -57,6 +59,11 @@ class TransList extends StatelessWidget {
                           fontSize: 16,
                           fontFamily: 'QuickSand',
                           fontWeight: FontWeight.bold),
+                    ),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      color: Theme.of(context).errorColor,
+                      onPressed: () => _deleteTransaction(index),
                     ),
                   ),
                 );

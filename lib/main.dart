@@ -90,6 +90,12 @@ class _MyHomePageState extends State<MyHomePage> {
     return;
   }
 
+  void _deleteTransaction(int index) {
+    setState(() {
+      _transList.removeAt(index);
+    });
+  }
+
   void _startInput(
     BuildContext ctx,
   ) {
@@ -123,8 +129,14 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Container(
+              margin: EdgeInsets.all(10),
+              padding: EdgeInsets.all(10),
+              child: Text("Expenses over the last 7 days",
+                  style: Theme.of(context).textTheme.headline6),
+            ),
             Chart(_recentTransactions),
-            TransList(_transList),
+            TransList(_transList, _deleteTransaction),
           ],
         ),
       ),
