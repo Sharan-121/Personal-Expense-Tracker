@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
                 .headline6),
       ),
       home: MyHomePage(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
