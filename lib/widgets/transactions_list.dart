@@ -11,18 +11,20 @@ class TransList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return transList.isEmpty
-        ? Column(children: <Widget>[
-            SizedBox(height: 20),
-            Text(
-              "No Transactions added yet",
-              style: Theme.of(context).textTheme.headline6,
-            ),
-            SizedBox(height: 10),
-            Container(
-                height: 200,
-                child: Image.asset('assets/images/waiting.png',
-                    fit: BoxFit.cover)),
-          ])
+        ? LayoutBuilder(builder: (ctx, constraints) {
+            return Column(children: <Widget>[
+              SizedBox(height: 20),
+              Text(
+                "No Transactions added yet",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(height: 10),
+              Container(
+                  height: constraints.maxHeight * 0.6,
+                  child: Image.asset('assets/images/waiting.png',
+                      fit: BoxFit.cover)),
+            ]);
+          })
         : ListView.builder(
             itemBuilder: (context, index) {
               return Card(

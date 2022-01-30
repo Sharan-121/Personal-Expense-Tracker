@@ -1,14 +1,21 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors
 
 import 'package:flutter/material.dart';
-import 'package:personal_expense_tracker/widgets/chart.dart';
+import 'package:flutter/services.dart';
 
-import 'package:personal_expense_tracker/widgets/transactions_list.dart';
-import 'package:personal_expense_tracker/widgets/transaction_input.dart';
-
-import 'models/transaction.dart';
+import './widgets/chart.dart';
+import './widgets/transactions_list.dart';
+import './widgets/transaction_input.dart';
+import './models/transaction.dart';
 
 void main() {
+  // Code for rendering the app only in portrait mode.
+
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  //   DeviceOrientation.portraitDown,
+  // ]);
   runApp(MyApp());
 }
 
@@ -110,8 +117,13 @@ class _MyHomePageState extends State<MyHomePage> {
         });
   }
 
+  bool _showChart = false;
+
   @override
   Widget build(BuildContext context) {
+    final isLandscape =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
     final appBar = AppBar(
       title: Text('Personal Expense Tracker'),
       actions: <Widget>[
@@ -131,28 +143,48 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            // Container(
-            //   height: (MediaQuery.of(context).size.height -
-            //           appBar.preferredSize.height -
-            //           MediaQuery.of(context).padding.top) *
-            //       0.1,
-            //   margin: EdgeInsets.all(10),
-            //   padding: EdgeInsets.all(10),
-            //   child: Text("Expenses over the last 7 days",
-            //       style: Theme.of(context).textTheme.headline6),
-            // ),
-            Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.3,
-                child: Chart(_recentTransactions)),
-            Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.7,
-                child: TransList(_transList, _deleteTransaction)),
+            if (isLandscape)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('Show Chart'),
+                  Switch(
+                      value: _showChart,
+                      onChanged: (val) {
+                        setState(() {
+                          _showChart = val;
+                        });
+                      }),
+                ],
+              ),
+            if (!isLandscape)
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.3,
+                  child: Chart(_recentTransactions)),
+            if (!isLandscape)
+              Container(
+                  height: (MediaQuery.of(context).size.height -
+                          appBar.preferredSize.height -
+                          MediaQuery.of(context).padding.top) *
+                      0.7,
+                  child: TransList(_transList, _deleteTransaction)),
+            if (isLandscape)
+              _showChart
+                  ? Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: Chart(_recentTransactions))
+                  : Container(
+                      height: (MediaQuery.of(context).size.height -
+                              appBar.preferredSize.height -
+                              MediaQuery.of(context).padding.top) *
+                          0.7,
+                      child: TransList(_transList, _deleteTransaction)),
           ],
         ),
       ),
