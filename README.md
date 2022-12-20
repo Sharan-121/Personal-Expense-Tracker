@@ -1,5 +1,3 @@
 ## Personal Expense Tracker
 
-## Features
-
 
